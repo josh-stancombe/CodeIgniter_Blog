@@ -13,3 +13,25 @@
 	width: 75%;
 	border-radius: 100%;
 }
+
+.pagination-links{
+	margin: 30px 0;
+}
+
+.pagination-links strong {
+	padding: 8px 13px;
+	margin:  5px;
+	background: lightgray;
+	border: 2px solid;
+}
+
+a.pagination-links {
+	padding: 8px 13px;
+	margin:  5px;
+	background: lightgray;
+	border: 2px solid;
+}
+
+.cat-delete {
+	display: inline;
+}
