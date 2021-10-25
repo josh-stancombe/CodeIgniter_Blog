@@ -4,9 +4,16 @@
 			$this->load->database();
 		}
 
+		public function delete_category($id){
+			$this->db->where('id',$id);
+			$this->db->delete('categories');
+			return true;
+		}
+
 		public function create_category(){
 			$data = array(
-				'name' => $this->input->post('name')
+				'name' => $this->input->post('name'),
+				'user_id' => $this->session->userdata('user_id');
 			);
 
 			return $this->db->insert('categories',$data);

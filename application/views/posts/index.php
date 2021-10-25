@@ -23,4 +23,10 @@
 			<br><br>	
 		</div>
 	</div>
+
 <?php endforeach; ?>
+
+<!-- Pagination -->
+<div class="pagination-links">
+	<?php echo $this->pagination->create_links(); ?>
+</div>
