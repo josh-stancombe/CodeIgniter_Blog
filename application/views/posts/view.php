@@ -16,13 +16,62 @@
 	</div>
 </div>
 
-<hr>
 
-<?php echo form_open('/posts/delete/' .$post['id']); ?>
+<?php if($this->session->userdata('user_id') == $post['user_id']): ?>
+	<hr>
+	<?php echo form_open('/posts/delete/' .$post['id']); ?>
+		
+		<!-- Should this anchor be within the form ?! -->
+		<a class="btn btn-secondary" href="<?php echo base_url(); ?>posts/edit/<?php echo $post['slug'];?>">Edit</a>
+
+		<input type="submit" value="Delete" class="btn btn-danger">
+
+	</form>
 	
-	<!-- Should this anchor be within the form ?! -->
-	<a class="btn btn-secondary" href="<?php echo base_url(); ?>posts/edit/<?php echo $post['slug'];?>">Edit</a>
+<?php endif; ?>
 
-	<input type="submit" value="Delete" class="btn btn-danger">
 
+<hr>
+<h3>Comments</h3>
+<br>
+<?php if($comments) : ?>
+	<?php foreach($comments as $comment) : ?>
+		<div class="card card-body bg-light">
+			<h6><?php echo $comment['body']; ?></h6>
+			<br>
+			<strong><?php echo $comment['name']; ?></strong>
+			<em><?php echo $comment['created_at']; ?></em>
+		</div>
+		<br>
+	<?php endforeach; ?>
+
+<?php else : ?>
+	<p>No comments to display</p>
+
+<?php endif; ?>
+
+
+
+<hr>
+<h3>Add Comment</h3>
+<br>
+
+<?php echo validation_errors(); ?>
+
+<?php echo form_open('comments/create/'.$post['id']); ?>
+	<div class="form-group">
+		<label>Name</label>
+		<input type="text" name="name" class="form-control">
+	</div>
+	<div class="form-group">
+		<label>Email</label>
+		<input type="text" name="email" class="form-control">
+	</div>
+	<div class="form-group">
+		<label>Body</label>
+		<textarea name="body" class="form-control"></textarea>
+	</div>
+	<input type="hidden" name="slug" value ="<?php echo $post['slug']; ?>">
+	<br>
+	<button class="btn btn-primary" type="submit">Submit</button>
 </form>

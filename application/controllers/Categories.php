@@ -3,6 +3,7 @@
 class Categories extends CI_Controller {
 
 	public function index(){
+
 		$data['title'] = 'Categories';
 		$data['categories'] = $this->category_model->get_categories();
 
@@ -12,6 +13,12 @@ class Categories extends CI_Controller {
 	}
 
 	public function create(){
+		
+			// Check login
+			if(!$this->session->userdata('logged_in')){
+				redirect('users/login');
+			}
+
 		$data['title'] = 'Create category';
 
 		$this->form_validation->set_rules('name', 'Name', 'required');
@@ -22,6 +29,10 @@ class Categories extends CI_Controller {
 			$this->load->view('templates/footer');
 		} else {
 			$this->category_model->create_category();
+
+			// Set message
+			$this->session->set_flashdata('category_created', 'Your category has been created.');
+
 			redirect('categories');
 		}
 	}
